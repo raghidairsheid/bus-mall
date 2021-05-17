@@ -1,14 +1,11 @@
 'use secrit';
 
 let attemps = 0;
+// let count = 0;
 let maxAttempts = 25;
 let attempsEl = document.getElementById('attemps');
 // let resultEl = document.getElementById('result');
 let allProduct = [];
-let mallImagesName = [];
-let mallClick = [];
-let mallViews = [];
-let newAllProduct = [];
 
 //constructor
 function Product(name){
@@ -17,7 +14,6 @@ function Product(name){
     this.click = 0;
     this.views = 0;
     allProduct.push(this);
-    mallImagesName.push(this.name);
 }
 
 let mallImages= ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg','water-can.jpg', 'wine-glass.jpg'];
@@ -48,22 +44,11 @@ function renderImg(){
     rightImgIndex = generateImage();
     centerImgIndex = generateImage();
 
-    while (leftImgIndex === centerImgIndex 
-      || centerImgIndex === rightImgIndex 
-      || leftImgIndex === rightImgIndex
-      || newAllProduct.includes(leftImgIndex)
-      || newAllProduct.includes(centerImgIndex)
-      || newAllProduct.includes(rightImgIndex)
-      ) {
+    while (leftImgIndex === centerImgIndex || centerImgIndex === rightImgIndex || leftImgIndex === rightImgIndex) {
         leftImgIndex = generateImage();
-        centerImgIndex = generateImage();
+        // centerImgIndex = generateImage();
         rightImgIndex = generateImage();
     }
-
-    newAllProduct[0] = leftImgIndex;
-    newAllProduct[1] = centerImgIndex;
-    newAllProduct[2] = rightImgIndex;
-
     lImgIndex.setAttribute('src',allProduct[leftImgIndex].imgFilePath);
     lImgIndex.setAttribute('title',allProduct[leftImgIndex].imgFilePath);
     allProduct[leftImgIndex].views++;
@@ -79,7 +64,6 @@ function renderImg(){
     allProduct[rightImgIndex].views++;
     // console.log(allProduct[rightImgIndex].name);
     
-    attempsEl.textContent = attemps;
 }
 renderImg();
 
@@ -90,87 +74,72 @@ rImgIndex.addEventListener('click', uesrClick);
 function uesrClick(event){
   attemps++;
   if(attemps <= maxAttempts){
-    console.log(event.target.id)
     if(event.target.id === 'pic1'){
       allProduct[leftImgIndex].click++;
+      //allProduct[leftImgIndex].showTimes = allProduct[leftImgIndex].showTimes+1;
     }
-    else if(event.target.id === 'pic2'){
+    else if(event.target.id == 'pic2'){
       allProduct[centerImgIndex].click++;
+      //allProduct[centerImgIndex].showTimes = allProduct[centerImgIndex].showTimes+1;
     }
-    else if(event.target.id === 'pic3')
+    else
     {
       allProduct[rightImgIndex].click++;
+      //allProduct[rightImgIndex].showTimes = allProduct[rightImgIndex].showTimes+1;
     }
     renderImg();
     // console.log(allProduct);
   }
   else{
-    lImgIndex.removeEventListener('click', uesrClick);
-    cImgIndex.removeEventListener('click', uesrClick);
-    rImgIndex.removeEventListener('click', uesrClick);
-
-    // let viewEl = document.getElementById('viewResults');
-    let buttonEl = document.getElementById('button');
-
-    // viewEl.appendChild(buttonEl);
-    // buttonEl.textContent = 'View Results';
-    buttonEl.addEventListener('click', function clicking()
-    {
-    
-    let ulEl = document.getElementById('result');
+    let listShow = document.getElementById('result');
     let listEl;
     for (let i = 0; i<allProduct.length; i++){
       listEl = document.createElement('li');
-      ulEl.appendChild(listEl);
+      listShow.appendChild(listEl);
       listEl.textContent = `${allProduct[i].name} had ${allProduct[i].showTimes}  votes, and was seen ${allProduct[i].views} times.`;
-      
-      mallClick.push(allProduct[i].click);
-      mallViews.push(allProduct[i].views);
     }
-    
-    chartRender();
-    buttonEl.removeEventListener('click', clicking);
-  }
-    )
-
+  
+    lImgIndex.removeEventListener('click', uesrClick);
+    cImgIndex.removeEventListener('click', uesrClick);
+    rImgIndex.removeEventListener('click', uesrClick);
   }
 }
 
+
 function chartRender(){
-  
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: mallImagesName,
-          datasets: [{
-              label: '# of click',
-              data: mallClick,
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-              ],
-              borderWidth: 2
-            }, {
-              label: '# of views',
-              data: mallViews,
-              backgroundColor: [
-                  'rgba(75, 192, 192, 0.2)',
-              ],
-              borderColor: [
-                  'rgba(75, 192, 192, 1)',
-              ],
-              borderWidth: 2
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
-  });
-  }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: mallImagesName,
+            datasets: [{
+                label: '# of click',
+                data: mallClick,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 2
+              }, {
+                label: '# of views',
+                data: mallViews,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    }
