@@ -48,13 +48,7 @@ function renderImg(){
     rightImgIndex = generateImage();
     centerImgIndex = generateImage();
 
-    while (leftImgIndex === centerImgIndex 
-      || centerImgIndex === rightImgIndex 
-      || leftImgIndex === rightImgIndex
-      || newAllProduct.includes(leftImgIndex)
-      || newAllProduct.includes(centerImgIndex)
-      || newAllProduct.includes(rightImgIndex)
-      ) {
+    while (leftImgIndex === centerImgIndex || centerImgIndex === rightImgIndex || leftImgIndex === rightImgIndex || newAllProduct.includes(leftImgIndex) || newAllProduct.includes(centerImgIndex) || newAllProduct.includes(rightImgIndex)) {
         leftImgIndex = generateImage();
         centerImgIndex = generateImage();
         rightImgIndex = generateImage();
