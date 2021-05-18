@@ -148,7 +148,7 @@ function uesrClick(event){
     for (let i = 0; i<allProduct.length; i++){
       listEl = document.createElement('li');
       ulEl.appendChild(listEl);
-      listEl.textContent = `${allProduct[i].name} had ${allProduct[i].showTimes}  votes, and was seen ${allProduct[i].views} times.`;
+      listEl.textContent = `${allProduct[i].name} had ${allProduct[i].click}  votes, and was seen ${allProduct[i].views} times.`;
       
       mallClick.push(allProduct[i].click);
       mallViews.push(allProduct[i].views);
