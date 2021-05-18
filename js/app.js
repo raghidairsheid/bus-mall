@@ -9,6 +9,7 @@ let mallImagesName = [];
 let mallClick = [];
 let mallViews = [];
 let newAllProduct = [];
+Product.mall = [];
 
 //constructor
 function Product(name){
@@ -18,7 +19,12 @@ function Product(name){
     this.views = 0;
     allProduct.push(this);
     mallImagesName.push(this.name);
+    Product.mall.push(this);
+    // settingItems();
 }
+
+
+
 
 let mallImages= ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg','water-can.jpg', 'wine-glass.jpg'];
 
@@ -42,6 +48,28 @@ let rImgIndex = document.getElementById('pic3');
 let leftImgIndex;
 let centerImgIndex;
 let rightImgIndex;
+
+
+
+
+function settingItems(){
+  let data = JSON.stringify(Product.mall);
+  console.log(data);
+  localStorage.setItem('Product', data);
+ 
+}
+
+function gettingItems() {
+  let stringObj = localStorage.getItem('Product');
+  // console.log(stringObj);
+  let normalObj = JSON.parse(stringObj);
+  // console.log(normalObj);
+  if (normalObj !== null) {
+      Product.mall = normalObj;
+  }
+  renderImg();
+}
+
 
 function renderImg(){
     leftImgIndex = generateImage();
@@ -82,6 +110,7 @@ cImgIndex.addEventListener('click', uesrClick);
 rImgIndex.addEventListener('click', uesrClick); 
 
 function uesrClick(event){
+
   attemps++;
   if(attemps <= maxAttempts){
     console.log(event.target.id)
@@ -96,6 +125,7 @@ function uesrClick(event){
       allProduct[rightImgIndex].click++;
     }
     renderImg();
+   
     // console.log(allProduct);
   }
   else{
@@ -105,6 +135,8 @@ function uesrClick(event){
 
     // let viewEl = document.getElementById('viewResults');
     let buttonEl = document.getElementById('button');
+
+     settingItems();
 
     // viewEl.appendChild(buttonEl);
     // buttonEl.textContent = 'View Results';
@@ -124,6 +156,7 @@ function uesrClick(event){
     
     chartRender();
     buttonEl.removeEventListener('click', clicking);
+    // localStorage.removeItem('Attemps');
   }
     )
 
@@ -167,4 +200,7 @@ function chartRender(){
           }
       }
   });
-  }
+}
+
+gettingItems();
+
