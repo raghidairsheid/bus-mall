@@ -110,7 +110,8 @@ cImgIndex.addEventListener('click', uesrClick);
 rImgIndex.addEventListener('click', uesrClick); 
 
 function uesrClick(event){
-
+ settingItems();
+ 
   attemps++;
   if(attemps <= maxAttempts){
     console.log(event.target.id)
@@ -136,7 +137,7 @@ function uesrClick(event){
     // let viewEl = document.getElementById('viewResults');
     let buttonEl = document.getElementById('button');
 
-     settingItems();
+    
 
     // viewEl.appendChild(buttonEl);
     // buttonEl.textContent = 'View Results';
