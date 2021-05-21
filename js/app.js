@@ -67,7 +67,7 @@ function gettingItems() {
   if (normalObj !== null) {
       Product.mall = normalObj;
   }
-  renderImg();
+  //renderImg();
 }
 
 
